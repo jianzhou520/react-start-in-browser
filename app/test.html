@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../node_modules/react/dist/react.js"></script>
+    <script src="../node_modules/react-dom/dist/react-dom.js"></script>
+    <script src="../node_modules/babel-standalone/babel.min.js"></script>
+    <script></script>
+</head>
+<body>
+    <div id="test"></div>
+    <script type="text/babel">
+        console.log(window);
+        class Timer extends React.Component {
+            constructor (props) {
+                super(props);
+                this.state = {date: new Date()};
+            }
+            tick() {
+                this.setState({date: new Date()});
+            }
+            componentDidMount () {
+                setInterval(() => this.tick(), 1000);
+            }
+            render () {
+                return (
+                    <div>time is {this.state.date.toLocaleTimeString()}</div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <Timer />,
+            document.getElementById('test')
+        );
+    </script>
+</body>
+</html>

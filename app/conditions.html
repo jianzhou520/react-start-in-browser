@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello React</title>
+    <script type="text/javascript" src="../node_modules/react/dist/react.js"></script>
+    <script type="text/javascript" src="../node_modules/react-dom/dist/react-dom.js"></script>
+    <script type="text/javascript" src="../node_modules/babel-standalone/babel.js"></script>
+  </head>
+  <body>
+    <div id="user"></div>
+    <script type="text/babel">
+      // 组件一：未登录状态
+      class Login extends React.Component {
+          render () {
+              return (
+                  <div>Welcome! Old friend.</div>
+              );
+          }
+      }
+      class NotLogin extends React.Component {
+          render () {
+              return (
+                  <div>You need to login</div>
+              );
+          }
+      }
+      class Event extends React.Component {
+          constructor (props) {
+              super(props);
+              this.state = {
+                  userState: props.userState
+              };
+          }
+          clickHandler = (event) => {
+              this.setState({
+                  userState: !this.state.userState
+              });
+          }
+          // 组件state通过props的方式传给自组件后，子组件对props（即父组件state）的更改
+          // 不贵影响父组件。应该是需要其他的机制来进行状态同步
+          render () {
+              return (
+                  <button onClick={this.clickHandler}>按我{this.state.userState.toString()}</button>
+              );
+          }
+      }
+      class State extends React.Component {
+          constructor (props) {
+              super(props);
+              this.state = {
+                  userState: props.userState
+              };
+          }
+          render () {
+              if (this.state.userState) {
+                  return (
+                      <div>
+                        <Login />
+                        <Event userState={this.state.userState} />
+                      </div>
+                  );
+              } else {
+                  return (
+                      <div>
+                        <NotLogin />
+                        <Event userState={this.state.userState} />  
+                      </div>
+                  );
+              }
+          }
+      }
+      ReactDOM.render(
+          <State userState={false} />,
+          document.getElementById('user')
+      );
+    </script>
+  </body>
+</html>
