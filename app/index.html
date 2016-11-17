@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello React</title>
+    <script type="text/javascript" src="../node_modules/react/dist/react.js"></script>
+    <script type="text/javascript" src="../node_modules/react-dom/dist/react-dom.js"></script>
+    <script type="text/javascript" src="../node_modules/babel-standalone/babel.js"></script>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script type="text/babel">
+      class Clock extends React.Component {
+        constructor (props) {
+          super(props);
+          this.state = {
+            date: new Date(),
+            buttonStatus: true
+          };
+          this.clickHandler = this.clickHandler.bind(this);
+        }
+        tick () {
+          this.setState({date: new Date()});
+        }
+        componentDidMount () {
+          console.log(this);
+          this.timeId = setInterval(() => this.tick(), 1000);
+        }
+        clickHandler () {
+          this.setState({buttonStatus: !this.state.buttonStatus});
+        }
+        render () {
+          return (
+            <div>
+              <h1>hello world!</h1>
+              <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+              <div>{this.state.buttonStatus.toString()}</div>
+              <button onClick={this.clickHandler}>开关</button>
+            </div>
+          );
+        }
+      }
+      setInterval(() => {
+        ReactDOM.render(
+          <Clock/>,
+          document.getElementById('test')
+        );
+      }, 1000);
+    </script>
+  </body>
+</html>
