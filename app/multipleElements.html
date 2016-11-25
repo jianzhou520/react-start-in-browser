@@ -10,17 +10,34 @@
   <body>
     <div id="test"></div>
     <script type="text/babel">
-      let elementContents = [
-        'fdkas',
-        'adgsasg',
-        'ag43',
-        'ytjh',
-        '324gfa'
-      ];
-      let eles = elementContents.map((value, index) => <li key={index}>{value}</li>);
+      class ListItem extends React.Component {
+        constructor (props) {
+          super(props);
+        }
+        render (
+          return (
+            <li>{props.value}</li>
+          );
+        )s
+      }
       class Ul extends React.Component {
         constructor (props) {
           super(props);
+        }
+        componentDidMount () {
+          console.log(222);
+          this.state = {
+            elementContents : [
+              'fdkas',
+              'adgsasg',
+              'ag43',
+              'ytjh',
+              '324gfa'
+            ]
+          };
+          let eles = this.state.elementContents.map((value, index, thisArr) => {
+            return <ListItem>{value}</ListItem>;
+          });
         }
         render () {
           return (
