@@ -14,17 +14,17 @@
         constructor (props) {
           super(props);
         }
-        render (
+        render () {
           return (
-            <li>{props.value}</li>
+            <li>{this.props.value}</li>
           );
-        )s
+        }
       }
       class Ul extends React.Component {
         constructor (props) {
           super(props);
         }
-        componentDidMount () {
+        componentWillMount () {
           console.log(222);
           this.state = {
             elementContents : [
@@ -36,17 +36,22 @@
             ]
           };
           let eles = this.state.elementContents.map((value, index, thisArr) => {
-            return <ListItem>{value}</ListItem>;
+            return <ListItem key={index.toString()} value={value}></ListItem>;
           });
+          this.state = {
+            eles: eles
+          };
+          // this.setState({eles: []});
+          console.log(this.state.eles);
         }
         render () {
           return (
-            <ul>{eles}</ul>
+            <ul>{this.state.eles}</ul>
           );
         }
       }
       ReactDOM.render(
-        <ul>{eles}</ul>,
+        <Ul></Ul>,
         document.getElementById('test')
       );
     </script>
