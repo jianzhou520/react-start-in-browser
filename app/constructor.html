@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../node_modules/react/dist/react.js"></script>
+    <script type="text/javascript" src="../node_modules/react-dom/dist/react-dom.js"></script>
+    <script type="text/javascript" src="../node_modules/babel-standalone/babel.js"></script>
+</head>
+<body>
+    <div id="test"></div>
+    <script type="text/babel">
+        class Hello extends React.Component {
+            constructor(props) {
+                // props should be as a param while invoking super func, otherwise it will
+                // return undefined when you call this.props
+                // this is the right place to initialize props on this
+                super();
+                console.log('----props----');
+                console.log(this.props);
+            }
+            render () {
+                console.log('----rendering----');
+                console.log(this.props);
+                return (
+                    <div>hello world</div>
+                );
+            }
+        }
+        Hello.propTypes = {
+            name: React.PropTypes.bool.isRequired
+        };
+        ReactDOM.render(
+            <Hello name='dasfasf'/>,
+            document.getElementById('test')            
+        );
+    </script>
+</body>
+</html>
